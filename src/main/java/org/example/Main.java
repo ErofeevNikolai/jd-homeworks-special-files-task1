@@ -19,9 +19,9 @@ public class Main {
         /*
         Создаем массив строчек columnMapping, содержащий информацию о предназначении колонок в CVS файле:
         Определяем имя для считываемого CSV файла:
-        Далее получите список сотрудников, вызвав метод parseCSV(), где в качестве аргументов передаем массив
+        Получаем список сотрудников, вызвав метод parseCSV(), где в качестве аргументов передаем массив
         строк с информацией о предназначении колонок и названием файла из которого считываем
-        Полученный список преобразуйте в строчку в формате JSON.
+        Полученный список преобразовываем в строчку в формате JSON и сохраняем в файл
          */
         String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
         String fileName = "data.csv";
@@ -85,13 +85,12 @@ public class Main {
         Gson gson = builder.create();
         Type listType = new TypeToken<List<Employee>>() {}.getType();
         String json = gson.toJson(list, listType);
-        System.out.println(json);
         try (FileWriter file = new FileWriter("new_data.json")) {
             file.write(json);
             file.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return json;
     }
 }
